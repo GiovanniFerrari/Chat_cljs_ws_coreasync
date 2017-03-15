@@ -17,8 +17,8 @@
 
 (defn add_to_html
   [data]
-  (append! (by-id "history") (str "<li>" (.-data data) "</li>"))
-  (set-value! (by-id "where_type_text") ""))
+  (do (append! (by-id "history") (str "<li id=print>" (.-data data) "</li>"))
+      (set-value! (by-id "where_type_text") " ")))
 
 (defn initial_procedure
   [channel_list]
@@ -32,6 +32,7 @@
     (do
         (prevent-default evt)
         (.send (first @channel_opened) msg)
+        (append! (by-id "history") (str "<li id=self_print>" msg "</li>"))
         false))
 
 

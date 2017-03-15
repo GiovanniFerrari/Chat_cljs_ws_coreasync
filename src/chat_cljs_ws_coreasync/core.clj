@@ -30,8 +30,8 @@
     (on-receive channel (fn [data] ;; echo it back
                           (do
                               (println "data received: " data "from client: " (get_client channel))
-                              (doseq [channel @channels]
-                                (send! channel data)))))))
+                              (doseq [chan (filter #(not= channel %) @channels)]
+                                (send! chan data)))))))
 
 ;(run-server http_handler {:port 3002})
 ;(run-server handler {:port 9092})

@@ -134,9 +134,17 @@ input.default {
 
 #history-wrap {
     overflow-y: auto;
-    height: 100px;
+    height: 200px;
     box-shadow: 0 0 4px #bbb;
     margin-bottom: 20px;
+}
+
+#self_print{
+	padding-left: 100px;
+}
+
+#print{
+	padding-left: 10px;
 }
 
 
@@ -146,9 +154,21 @@ input.default {
     font-size: 14px;
 }
 
+/*ul{
+    display: block;
+    list-style-type: disc;
+    margin-top: 1em;
+    margin-bottom: 30 em;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 40px;
+}*/
+
 .error {
 	color: #FF1400;
 }
+
+
 /*
 :invalid {
 	color:red;
