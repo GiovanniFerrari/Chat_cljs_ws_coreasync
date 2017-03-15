@@ -37,6 +37,10 @@
   "Launch immediate feedback dev environment"
   []
   (comp
+   (serve :handler 'chat-cljs-ws-coreasync.core/http_handler               ;; ring hanlder
+          :resource-root "target"                      ;; root classpath
+          :httpkit true)
+   (watch)
    (cljs-repl) ;; before cljs
    (cljs)
    (target :dir #{"target"})))

@@ -28,7 +28,7 @@
 
 (defroutes http_handler
   (GET "/" [] "Hello from Compojure!")  ;; for testing only
-  (GET "/ws" request (handler request))
+  (GET "/ws" request (handler request)) ;; Web socket managing
   (files "/" {:root "target"})          ;; to serve static resources
   (resources "/" {:root "target"})      ;; to serve anything else
   (not-found "Page Not Found"))
