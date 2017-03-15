@@ -1,9 +1,17 @@
 (ns chat-cljs-ws-coreasync.core
      (:gen-class)
      (:require [compojure.core :refer [GET defroutes]]
+               [compojure.route :refer [not-found files resources]]
+               [compojure.handler :refer [site]]
                [org.httpkit.server
                 :refer [send! with-channel on-close on-receive run-server]]
                ))
+
+(defroutes http_handler
+  (GET "/" [] "Hello from Compojure!")  ;; for testing only
+  (files "/" {:root "target"})          ;; to serve static resources
+  (resources "/" {:root "target"})      ;; to serve anything else
+  (not-found "Page Not Found"))         ;; page not found
 
 (defonce channels (atom #{}))
 
@@ -21,7 +29,10 @@
                               (doseq [channel @channels]
                                 (send! channel data)))))))
 
+;(run-server http_handler {:port 3002})
 ;(run-server handler {:port 9092})
+
+
 
 (defn -main
   "I don't do a whole lot ... yet."
