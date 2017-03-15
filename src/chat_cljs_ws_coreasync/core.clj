@@ -9,17 +9,27 @@
 
 (defonce channels (atom #{}))
 
-(defn connect!
+(defn get_client
+  "Self made function that cut the begin of the channel and return only the end point
+  Used only to make code more readibily"
   [channel]
-  (swap! channels conj channel))
+  (clojure.string/replace (str channel) #"/127.0.0.1:3000<->/" ""))
+
+(defn connect!
+  [channel request]
+  (swap! channels conj channel)
+  (println (str
+                "Channel connected! There is a client on: "
+                (get_client channel)
+            )))
 
 (defn handler [request]
   (with-channel request channel
-    (connect! channel)
+    (connect! channel request)
     (on-close channel (fn [status] (println "channel closed: " status)))
     (on-receive channel (fn [data] ;; echo it back
                           (do
-                              (println "data received: " data)
+                              (println "data received: " data "from client: " (get_client channel))
                               (doseq [channel @channels]
                                 (send! channel data)))))))
 
