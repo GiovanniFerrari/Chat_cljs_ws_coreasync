@@ -17,7 +17,7 @@
 (defn initial_procedure
   [channel_list]
   (if (empty? @channel_list)
-      (do (swap! channel_list conj (js/WebSocket. "ws://localhost:9090"))
+      (do (swap! channel_list conj (js/WebSocket. "ws://localhost:3000/ws"))
           (set! (.-onmessage (first @channel_list)) #(js/console.log %))
           )))
 
