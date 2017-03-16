@@ -20,10 +20,18 @@
   (do (append! (by-id "history") (str "<li id=print>" (.-data data) "</li>"))
       (set-value! (by-id "where_type_text") " ")))
 
+
+(defn get_ws_channel
+  []
+  (let [ http_url window.location.href
+         http_url (clojure.string/replace http_url #"http" "ws")]
+    (clojure.string/replace http_url #"index.html" "ws")))
+
+
 (defn initial_procedure
   [channel_list]
   (if (empty? @channel_list)
-      (do (swap! channel_list conj (js/WebSocket. "ws://localhost:3000/ws"))
+      (do (swap! channel_list conj (js/WebSocket. (get_ws_channel)))
           (set! (.-onmessage (first @channel_list)) #(add_to_html %))
           )))
 
