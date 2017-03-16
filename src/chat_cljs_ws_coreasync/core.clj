@@ -5,6 +5,7 @@
                [compojure.handler :refer [site]]
                [org.httpkit.server
                 :refer [send! with-channel on-close on-receive run-server]]
+               [clj-time.core :as time]
                ))
 
 (defonce channels (atom #{}))
@@ -28,7 +29,8 @@
     (connect! channel request)
     (on-close channel (fn [status] (println "channel closed: " status)))
     (on-receive channel (fn [data] ;; echo it back
-                          (do
+                          (let [data (str data "-" (System/currentTimeMillis))]
+                              (Thread/sleep (rand-int 2000))
                               (println "data received: " data "from client: " (get_client channel))
                               (doseq [chan (filter #(not= channel %) @channels)]
                                 (send! chan data)))))))

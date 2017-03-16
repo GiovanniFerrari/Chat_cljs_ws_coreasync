@@ -40,7 +40,7 @@
     (do
         (prevent-default evt)
         (.send (first @channel_opened) msg)
-        (append! (by-id "history") (str "<li id=self_print>" msg "</li>"))
+        (append! (by-id "history") (str "<li id=self_print>" msg "-" (Date.now) "</li>"))
         false))
 
 
@@ -49,4 +49,4 @@
            (aget js/document "getElementById"))
     (let [text (by-id "where_type_text")]
       (initial_procedure channel_opened)
-      (listen! (by-id "submit") :click (fn [evt] (send-message (str "|-----" (value text) "----|" ) evt))))))
+      (listen! (by-id "submit") :click (fn [evt] (send-message (str "-" (value text) ) evt))))))

@@ -22,6 +22,7 @@
                  [enlive "1.1.6"]
                  [adzerk/boot-test "1.2.0"]
                  [crisptrutski/boot-cljs-test "0.2.1-SNAPSHOT"]
+                 [clj-time "0.13.0"]
                  ])
 
 (require '[adzerk.boot-cljs :refer [cljs]]
